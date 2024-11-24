@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #1e3c72, #2a5298);
+    overflow: hidden;
+  }
+  
+  /* Modern Pop-Up Style */
+  #welcome-popup {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 999;
+    width: 80%;
+    max-width: 400px;
+    font-size: 18px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    display: none;
+  }
+  
+  #welcome-popup h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  #welcome-popup p {
+    margin-bottom: 20px;
+  }
+  
+  #ok-button {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Animation for Thunder */
+  #thunder-animation {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Thunder_icon.svg/1024px-Thunder_icon.svg.png') no-repeat center;
+    background-size: cover;
+    animation: thunder 1s forwards;
+    z-index: 1000;
+    display: none;
+  }
+  
+  @keyframes thunder {
+    0% {
+      transform: translateX(-50%) scale(0);
+    }
+    100% {
+      transform: translateX(-50%) scale(1);
+    }
+  }
+  
+  /* Robot Icon */
+  #robot {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 80px;
+    height: 80px;
+    background: url('https://cdn-icons-png.flaticon.com/512/4712/4712031.png') no-repeat center;
+    background-size: contain;
+    z-index: 1000;
+    cursor: pointer;
+  }
+  
+  /* Thinking Text */
+  #thinking-text {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 10;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  /* Welcome Screen */
+  #welcome-screen {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+  }
+  
+  #welcome-screen button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #welcome-screen button:hover {
+    background-color: #1e3c72;
+  }
+  

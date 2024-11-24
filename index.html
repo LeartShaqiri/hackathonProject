@@ -1,0 +1,547 @@
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Globe with Robot Assistant</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three-globe@2.24.0/dist/three-globe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #1e3c72, #2a5298);
+      overflow: hidden;
+    }
+
+    /* Modern Pop-Up Style */
+    #welcome-popup {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 999;
+      width: 80%;
+      max-width: 400px;
+      font-size: 18px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      display: none;
+    }
+
+    #welcome-popup h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #welcome-popup p {
+      margin-bottom: 20px;
+    }
+
+    #ok-button {
+      background-color: #ffcc00;
+      color: #333;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    /* Animation for Thunder */
+    #thunder-animation {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Thunder_icon.svg/1024px-Thunder_icon.svg.png') no-repeat center;
+      background-size: cover;
+      animation: thunder 1s forwards;
+      z-index: 1000;
+      display: none;
+    }
+
+    @keyframes thunder {
+      0% {
+        transform: translateX(-50%) scale(0);
+      }
+      100% {
+        transform: translateX(-50%) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Pop-Up -->
+  <div id="welcome-popup">
+    <h2>Welcome to the Interactive Globe!</h2>
+    <p>This website was created to offer a fun and easy way to explore different continents. By clicking on the continents, you can learn fascinating facts about each one and broaden your understanding of the world around you.</p>
+    <p>Enjoy the adventure!</p>
+    <button id="ok-button">OK</button>
+  </div>
+
+  <!-- Thunder Animation -->
+  <div id="thunder-animation"></div>
+
+  <script>
+    // Show the Welcome Pop-Up when the page loads
+    window.onload = function() {
+      document.getElementById("welcome-popup").style.display = "block";
+    }
+
+    // Close the Pop-Up when the "OK" button is clicked
+    document.getElementById("ok-button").addEventListener("click", function() {
+      document.getElementById("welcome-popup").style.display = "none";
+
+      // Show the Thunder Animation
+      document.getElementById("thunder-animation").style.display = "block";
+
+      // Hide Thunder Animation after animation ends
+      setTimeout(function() {
+        document.getElementById("thunder-animation").style.display = "none";
+        },2000);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<style>
+    
+
+
+
+
+
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #1e3c72, #2a5298);
+  overflow: hidden;
+}
+
+/* Modern Pop-Up Style */
+#welcome-popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 999;
+  width: 80%;
+  max-width: 400px;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  display: none;
+}
+
+#welcome-popup h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#welcome-popup p {
+  margin-bottom: 20px;
+}
+
+#ok-button {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Animation for Thunder */
+#thunder-animation {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Thunder_icon.svg/1024px-Thunder_icon.svg.png') no-repeat center;
+  background-size: cover;
+  animation: thunder 1s forwards;
+  z-index: 1000;
+  display: none;
+}
+
+@keyframes thunder {
+  0% {
+    transform: translateX(-50%) scale(0);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #1e3c72, #2a5298);
+  overflow: hidden;
+}
+
+/* Modern Pop-Up Style */
+#welcome-popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 999;
+  width: 80%;
+  max-width: 400px;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  display: none;
+}
+
+#welcome-popup h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#welcome-popup p {
+  margin-bottom: 20px;
+}
+
+#ok-button {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Animation for Thunder */
+#thunder-animation {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Thunder_icon.svg/1024px-Thunder_icon.svg.png') no-repeat center;
+  background-size: cover;
+  animation: thunder 1s forwards;
+  z-index: 1000;
+  display: none;
+}
+
+@keyframes thunder {
+  0% {
+    transform: translateX(-50%) scale(0);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #1e3c72, #2a5298);
+    overflow: hidden;
+  }
+
+  #robot {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 80px;
+    height: 80px;
+    background: url('https://cdn-icons-png.flaticon.com/512/4712/4712031.png') no-repeat center;
+    background-size: contain;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  #thinking-text {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 10;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  #welcome-screen {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    z-index: 1000;
+  }
+
+  #welcome-screen button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2a5298;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #welcome-screen button:hover {
+    background-color: #1e3c72;
+  }
+
+
+    
+    
+    </style>
+
+
+
+
+
+</head>
+<body>
+  <div id="robot"></div>
+  <div id="thinking-text">AI is thinking...</div>
+  <div id="welcome-screen">
+    <p>Welcome to the Interactive Globe! Click on any continent to learn fascinating travel facts!</p>
+    <button onclick="startExperience()">OK</button>
+  </div>
+
+  <script>
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Globe setup
+    const globeRadius = 500;
+    const globe = new ThreeGlobe()
+      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
+      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png');
+    globe.scale.set(globeRadius / 100, globeRadius / 100, globeRadius / 100);
+    scene.add(globe);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+    // OrbitControls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.z = globeRadius * 2;
+
+    // Continents data
+    const continents = [
+      { name: 'Asia', coords: [34.0479, 100.6197], description: 'Asia is the largest continent, home to diverse cultures and landscapes. Famous landmarks include the Great Wall of China, Mount Everest, and the Taj Mahal.' },
+      { name: 'Africa', coords: [1.2921, 36.8219], description: 'Africa is known for its rich biodiversity and cultural heritage. The Sahara Desert, Victoria Falls, and the pyramids of Egypt are key highlights.' },
+      { name: 'Europe', coords: [54.5260, 15.2551], description: 'Europe is renowned for its history, art, and architecture. Iconic locations include the Eiffel Tower in France, the Colosseum in Rome, and the beaches of Greece.' },
+      { name: 'Australia', coords: [-25.2744, 133.7751], description: 'Australia is famous for its unique wildlife and landscapes. The Great Barrier Reef and the Sydney Opera House are some of its top attractions.' },
+      { name: 'North America', coords: [37.0902, -95.7129], description: 'North America is a continent of varied climates and cultures, with cities like New York, Los Angeles, and Toronto offering diverse experiences.' },
+      { name: 'South America', coords: [-14.2350, -51.9253], description: 'South America is known for its rainforests and vibrant cultures. The Amazon Rainforest and Machu Picchu are just a few of its world-renowned sites.' },
+      { name: 'Antarctica', coords: [-75.2500, 0], description: 'Antarctica is a frozen wilderness, vital for global climate studies. Its icebergs and penguin colonies are famous, though rarely visited.' }
+    ];
+
+    const thinkingText = document.getElementById('thinking-text');
+
+    // Lat/Long to 3D position
+    function latLongToVector(lat, lon, radius = globeRadius) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      return new THREE.Vector3(
+        -(radius * Math.sin(phi) * Math.cos(theta)),
+        radius * Math.cos(phi),
+        radius * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    // Create continent markers
+    continents.forEach(continent => {
+      const pos = latLongToVector(continent.coords[0], continent.coords[1]);
+
+      // Create a canvas for the marker
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 64;
+      const context = canvas.getContext('2d');
+      context.fillStyle = 'white';
+      context.font = '20px Arial';
+      context.textAlign = 'center';
+      context.fillText(continent.name, canvas.width / 2, canvas.height / 2);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
+      const sprite = new THREE.Sprite(spriteMaterial);
+      sprite.scale.set(100, 50, 1);
+      sprite.position.copy(pos);
+      scene.add(sprite);
+
+      sprite.userData = { continent };
+
+      sprite.onClick = () => {
+        thinkingText.style.display = 'block';  // Show "thinking" text
+        setTimeout(() => {
+          thinkingText.style.display = 'none';  // Hide "thinking" text after 2 seconds
+          const { name, description } = continent;
+          speak(description);
+        }, 2000);
+      };
+
+      renderer.domElement.addEventListener('click', (event) => {
+        const mouse = new THREE.Vector2();
+        const raycaster = new THREE.Raycaster();
+
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(sprite);
+
+        if (intersects.length > 0) {
+          sprite.onClick();
+        }
+      });
+    });
+
+    // Text-to-Speech function
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.pitch = 0.8;
+      utterance.rate = 1;
+      utterance.voice = speechSynthesis.getVoices().find(voice => voice.name.includes('Google UK English Male')) || speechSynthesis.getVoices()[0];
+      speechSynthesis.speak(utterance);
+    }
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Function to start the experience after clicking "OK"
+    function startExperience() {
+      document.getElementById('welcome-screen').style.display = 'none';
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </script>
+</body>
+</html>

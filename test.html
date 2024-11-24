@@ -1,0 +1,277 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Globe with Visual Effects</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three-globe@2.24.0/dist/three-globe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #e0f7fa, #b2ebf2);
+      overflow: hidden;
+    }
+
+    #ai-box {
+      position: fixed;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      display: none;
+      z-index: 10;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="ai-box">AI is thinking...</div>
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Popup Message</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #1e3c72, #2a5298);
+      color: #fff;
+      overflow: hidden;
+    }
+
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 400px;
+      background: #fff;
+      color: #333;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    #popup h2 {
+      margin: 0 0 10px;
+      font-size: 1.5rem;
+    }
+
+    #popup p {
+      margin: 10px 0 20px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    #popup button {
+      padding: 10px 20px;
+      background: #1e3c72;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    #popup button:hover {
+      background: #2a5298;
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay -->
+  <div id="overlay"></div>
+
+  <!-- Popup Message -->
+  <div id="popup">
+    <h2>Welcome to Our Project</h2>
+    <p>
+      Explore an interactive and dynamic globe showcasing real-time animations and effects. Click below to start your journey!
+    </p>
+    <button onclick="closePopup()">Okay, Let’s Go!</button>
+  </div>
+
+  <script>
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
+
+
+  <script>
+    // Set up scene, camera, renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Create globe
+    const globeRadius = 500;
+    const globe = new ThreeGlobe()
+      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-dark.jpg')
+      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png');
+    globe.scale.set(globeRadius / 100, globeRadius / 100, globeRadius / 100);
+    scene.add(globe);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+
+    // OrbitControls (camera movement)
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    camera.position.z = globeRadius * 2;
+    controls.maxDistance = 1500;  // Limit zoom out distance
+    controls.minDistance = 500;   // Limit zoom in distance
+
+    // Continent coordinates (latitude, longitude)
+    const continents = [
+      { name: 'Asia', coords: [34.0479, 100.6197] },
+      { name: 'Africa', coords: [1.2921, 36.8219] },
+      { name: 'Europe', coords: [54.5260, 15.2551] },
+      { name: 'Australia', coords: [-25.2744, 133.7751] },
+      { name: 'North America', coords: [37.0902, -95.7129] },
+      { name: 'South America', coords: [-14.2350, -51.9253] },
+      { name: 'Antarctica', coords: [-75.2500, 0] }
+    ];
+
+    const aiBox = document.getElementById('ai-box');
+
+    // Convert lat/long to 3D position on the globe
+    function latLongToVector(lat, lon, radius = globeRadius) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+      return new THREE.Vector3(
+        -(radius * Math.sin(phi) * Math.cos(theta)),
+        radius * Math.cos(phi),
+        radius * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    // Create continent labels with glow effect
+    continents.forEach(continent => {
+      const pos = latLongToVector(continent.coords[0], continent.coords[1]);
+
+      // Create canvas for text
+      const canvas = document.createElement('canvas');
+      canvas.width = 256;
+      canvas.height = 64;
+      const context = canvas.getContext('2d');
+      context.fillStyle = 'white';
+      context.shadowColor = 'blue';
+      context.shadowBlur = 10;
+      context.font = '25px Arial';
+      context.textAlign = 'center';
+      context.fillText(continent.name, canvas.width / 2, canvas.height / 2);
+
+      // Create sprite
+      const texture = new THREE.CanvasTexture(canvas);
+      const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
+      const sprite = new THREE.Sprite(spriteMaterial);
+      sprite.scale.set(100, 50, 1); // Adjust size
+      sprite.position.copy(pos);
+      scene.add(sprite);
+
+      // Add interaction
+      sprite.userData = { continent: continent.name };
+      sprite.onClick = () => {
+        aiBox.innerHTML = `AI is thinking about ${continent.name}...`;
+        aiBox.style.display = 'block';
+        setTimeout(() => {
+          aiBox.innerHTML = `<strong>${continent.name}:</strong> Great travel destinations!`;
+        }, 2000);
+        setTimeout(() => aiBox.style.display = 'none', 5000);
+      };
+
+      // Detect clicks on sprite
+      renderer.domElement.addEventListener('click', (event) => {
+        const mouse = new THREE.Vector2();
+        const raycaster = new THREE.Raycaster();
+
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(sprite);
+
+        if (intersects.length > 0) {
+          sprite.onClick();
+        }
+      });
+    });
+
+    // Thunder effect - Random lightning flashes near continents
+    function createThunderNearContinent(continent) {
+      const pos = latLongToVector(continent.coords[0], continent.coords[1]);
+      const flash = new THREE.SpotLight(0xFFFFFF, 5, 300, Math.PI / 4);
+      flash.position.set(
+        pos.x + (Math.random() * 200 - 100),
+        pos.y + (Math.random() * 200 - 100),
+        pos.z + (Math.random() * 200 - 100)
+      );
+      flash.castShadow = true;
+      scene.add(flash);
+
+      setTimeout(() => {
+        scene.remove(flash);
+      }, 100); // Flash duration
+    }
+
+    // Create thunder effect every 5 seconds for each continent
+    setInterval(() => {
+      continents.forEach(continent => {
+        createThunderNearContinent(continent);
+      });
+    }, 5000);
+
+    // Sun effect - Moving sun across the sky, bigger and farther
+    const sun = new THREE.Mesh(
+      new THREE.SphereGeometry(500, 32, 32), // Make it much larger
+      new THREE.MeshBasicMaterial({ color: 0xFFD700 })
+    );
+    sun.position.set(10000, 10000, 0);  // Place the sun far away
+    scene.add(sun);
+
+    let sunAngle = 0;
+    function updateSun() {
+      sunAngle += 0.001; // Speed of sun movement
+      sun.position.x = 10000 * Math.cos(sunAngle);
+      sun.position.y = 10000 * Math.sin(sunAngle);
+    }
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      updateSun();
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html> -->
